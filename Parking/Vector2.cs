@@ -2,6 +2,7 @@
 
 namespace Splines
 {
+    //координаты
     public struct Vector2 : IEquatable<Vector2>
     {
         public float X;

@@ -15,22 +15,40 @@ namespace Parking
     public partial class VisualizeSceneControl : UserControl
     {
         public IScene Scene { get; set; }
-        public bool IsStarted { get; private set; }
+        public VisualizeState State { get; set; }
         private Stopwatch stopwatch = new Stopwatch();
         private double deltaTime = 0;
         public float FPS { get; private set; }
 
         public VisualizeSceneControl()
         {
-            IsStarted = false;
+            State = VisualizeState.Stopped;
             InitializeComponent();
             this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.Opaque | ControlStyles.OptimizedDoubleBuffer, true);
         }
 
-        public void Start(IScene scene)
+        public enum VisualizeState
         {
-            this.Scene = scene;
-            IsStarted = true;
+            Started,
+            Stopped,
+            Paused
+        }
+
+        public void Start()
+        {
+            State = VisualizeState.Started;
+            this.Invalidate();
+        }
+
+        public void Stop()
+        {
+            State = VisualizeState.Stopped;
+            this.Invalidate();
+        }
+
+        public void Pause()
+        {
+            State = VisualizeState.Paused;
             this.Invalidate();
         }
 
@@ -38,7 +56,7 @@ namespace Parking
         {
             //base.OnPaint(e);
             e.Graphics.Clear(this.BackColor);
-            if (IsStarted)
+            if (State == VisualizeState.Started)
             {
                 Scene.Render(e.Graphics);
                 deltaTime = stopwatch.Elapsed.TotalSeconds;
@@ -48,7 +66,14 @@ namespace Parking
                 Thread.Sleep(1);
                 Application.DoEvents();
                 this.Invalidate();
-
+            }
+            else if(State == VisualizeState.Paused)
+            {
+                stopwatch.Stop();
+                Scene.Render(e.Graphics);
+                Thread.Sleep(1);
+                Application.DoEvents();
+                this.Invalidate();
             }
 
         }

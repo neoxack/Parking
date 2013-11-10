@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Splines
 {
+    //сплайн Катмулл-Рома
     public class CatmullRom
     {
-        private Vector2[] points;
+        private Vector2[] points; //массив точек сплайна
         private float deltaT;
 
         public CatmullRom()
@@ -21,6 +22,7 @@ namespace Splines
             deltaT = 1.0f / points.Length;
         }
 
+        //вычисление координаты по 4 точкам и параметру t
         private static Vector2 CatmullRomEq(Vector2 p0, Vector2 p1, Vector2 p2,  Vector2 p3, double t)
         {
             Vector2 ret;
@@ -43,6 +45,7 @@ namespace Splines
             return pp;
         }
 
+        //вычисление координаты в зависимости от параметра сплайна - t
         public Vector2 GetCoords(double t)
         {
             // Find out in which interval we are on the spline

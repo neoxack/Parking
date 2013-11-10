@@ -7,13 +7,17 @@ using System.Threading.Tasks;
 
 namespace Parking
 {
+    //вершина графа
     public class Vertex
     {
-        public Vector2 Position { get; private set; }
-        public ParkingPlace Place { get; set; }
+        public int Number { get; private set; } //номер вершины
+        public Vector2 Position { get; private set; } //координаты вершины
+        public ParkingPlace Place { get; set; } //парковочное место, соответствующее этой вершине графа, возможно null
 
-        public Vertex(Vector2 pos)
+        //конструктор вершины
+        public Vertex(int num, Vector2 pos)
         {
+            Number = num;
             Position = pos;
             Place = null;
         }
