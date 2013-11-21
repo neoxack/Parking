@@ -32,13 +32,13 @@ namespace Parking
             //настраиваем и запускаем таймер добавления машин
             addCarTimer = new Timer();
             addCarTimer.Tick += new EventHandler(AddCarsOnScene);
-            addCarTimer.Interval = 5000;
+            addCarTimer.Interval = settings.Interval;
             addCarTimer.Start();
 
             //настраиваем и запускаем таймер проверки, не пора ли освобождать парковочное место
             checkParkingPlaceTimer = new Timer();
             checkParkingPlaceTimer.Tick += new EventHandler(CheckParkingPlace);
-            checkParkingPlaceTimer.Interval = settings.Interval;
+            checkParkingPlaceTimer.Interval = 1000;
             checkParkingPlaceTimer.Start();
         }
 
