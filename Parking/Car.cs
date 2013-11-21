@@ -72,7 +72,7 @@ namespace Parking
             if(Type == TypeOfCar.Automobile)
                 g.FillRectangle(brush1, coords.X - 10, coords.Y - 10, 20, 20);
             else
-                g.FillRectangle(brush2, coords.X - 10, coords.Y - 10, 20, 20);
+                g.FillRectangle(brush2, coords.X - 15, coords.Y - 15, 30, 30);
         }
     }
 }

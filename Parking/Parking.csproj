@@ -65,11 +65,13 @@
       <DependentUpon>ParkingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IScene.cs" />
+    <Compile Include="ParkingMap.cs" />
     <Compile Include="ParkingPlace.cs" />
     <Compile Include="ParkingScene.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ISceneObject.cs" />
+    <Compile Include="RandGenerator.cs" />
     <Compile Include="Vector2.cs" />
     <Compile Include="Vertex.cs" />
     <Compile Include="VisualizeSceneControl.cs">

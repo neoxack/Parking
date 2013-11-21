@@ -28,14 +28,18 @@ namespace Parking
         public ParkingForm()
         {
             InitializeComponent();
+            List<ParkingMap> maps = new List<ParkingMap>();
+            maps.Add(ParkingMap.CreateLittleMap());
+            maps.Add(ParkingMap.CreateBigMap());
+
+            mapSizeBox.DataSource = maps;
+            mapSizeBox.DisplayMember = "Name";
+            mapSizeBox.SelectedIndex = 0;
 
             //настраиваем и запускаем таймер обновления статистики(fps и кол-ва денег в кассе)
             myTimer.Tick += new EventHandler(TimerEventProcessor);
-            myTimer.Interval = 200;
-            myTimer.Start();
-
-            //создаём сцену
-            CreateScene();    
+            myTimer.Interval = 500;
+            myTimer.Start();   
         }
 
         ParkingScene scene; //сцена парковки
@@ -43,7 +47,9 @@ namespace Parking
         //метод создания сцены
         private void CreateScene()
         {
-            scene = new ParkingScene();
+            if(scene != null) scene.Dispose();
+            scene = new ParkingScene((ParkingMap)mapSizeBox.SelectedItem);
+            visualizeSceneControl1.Scene = scene;
             scene.ParkingTariffAutomobile = 10; //тариф для легковых машин
             scene.ParkingTariffLorry = 20;      //тариф для грузовых машин
             visualizeSceneControl1.BackColor = Color.Gray;
@@ -51,8 +57,8 @@ namespace Parking
 
         //запуск визуализации сцены
         private void start_Click(object sender, EventArgs e)
-        {                   
-            visualizeSceneControl1.Scene = scene;
+        {
+            CreateScene();              
             visualizeSceneControl1.Start();
         }
 
@@ -60,7 +66,6 @@ namespace Parking
         private void stop_Click(object sender, EventArgs e)
         {
             visualizeSceneControl1.Stop();
-            CreateScene();
         }
 
         private void pause_Click(object sender, EventArgs e)
