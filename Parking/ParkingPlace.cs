@@ -11,7 +11,7 @@ namespace Parking
     public class ParkingPlace : ISceneObject
     {
         public Vertex VertexOnGraph { get; private set; } //вершина графа, соответствующая месту
-        public Car.TypeOfCar Type { get; private set; }   //для каких типов машин предназначено место
+        public TypeOfCar Type { get; private set; }   //для каких типов машин предназначено место
         
         //машина, занявшая это парковочное место
         public Car Car
@@ -42,12 +42,12 @@ namespace Parking
         }
 
         //конструктор места
-        public ParkingPlace(int number, Vertex graphVertex, Parking.Car.TypeOfCar type)
+        public ParkingPlace(int number, Vertex graphVertex, TypeOfCar type)
         {
             VertexOnGraph = graphVertex;
             Type = type;
             Number = number;
-            if (type == Parking.Car.TypeOfCar.Automobile)
+            if (type == TypeOfCar.Automobile)
             {
                 rect.Width = 120;
                 rect.Height = 60;

@@ -43,12 +43,12 @@ namespace Parking
         }
 
         ParkingScene scene; //сцена парковки
-
+        ParkingSceneSettings settings = new ParkingSceneSettings(); //класс настроек
         //метод создания сцены
         private void CreateScene()
         {
             if(scene != null) scene.Dispose();
-            scene = new ParkingScene((ParkingMap)mapSizeBox.SelectedItem);
+            scene = new ParkingScene((ParkingMap)mapSizeBox.SelectedItem, settings);
             visualizeSceneControl1.Scene = scene;
             scene.ParkingTariffAutomobile = 10; //тариф для легковых машин
             scene.ParkingTariffLorry = 20;      //тариф для грузовых машин
@@ -58,7 +58,8 @@ namespace Parking
         //запуск визуализации сцены
         private void start_Click(object sender, EventArgs e)
         {
-            CreateScene();              
+            mapSizeBox.Enabled = false;
+            CreateScene();      
             visualizeSceneControl1.Start();
         }
 
@@ -66,11 +67,18 @@ namespace Parking
         private void stop_Click(object sender, EventArgs e)
         {
             visualizeSceneControl1.Stop();
+            mapSizeBox.Enabled = true;
         }
 
         private void pause_Click(object sender, EventArgs e)
         {
             visualizeSceneControl1.Pause();
+        }
+
+        private void файлToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings settingsForm = new Settings(settings);
+            settingsForm.ShowDialog(this);
         }
     }
 }

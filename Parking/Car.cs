@@ -10,16 +10,16 @@ using System.Windows.Forms;
 
 namespace Parking
 {
+    public enum TypeOfCar
+    {
+        Lorry, //грузовая
+        Automobile //легковая
+    }
     //класс машин
     public class Car : ISceneObject
     {
         // перечисление типа машин
-        public enum TypeOfCar 
-        {
-            Lorry, //грузовая
-            Automobile //легковая
-        }
-
+        
         public double Speed { get; set; } //скорость
         public TypeOfCar Type { get; private set; } //тип машины
 

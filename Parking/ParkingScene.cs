@@ -13,38 +13,39 @@ namespace Parking
     public class ParkingScene : IScene, IDisposable
     {
         private List<Car> cars = new List<Car>(); //список машин
-
         private Timer addCarTimer; //таймер добавления машин
         private Timer checkParkingPlaceTimer; //таймер проверки, не пора ли освобождать парковочное место
-        private ParkingMap map;
+        private ParkingMap map; //карта
+        private ParkingSceneSettings settings;//настройки сцены
 
         public float ParkingTariffAutomobile { get; set; } //тариф за автомобиль
         public float ParkingTariffLorry { get; set; }      //тариф за грузовик
         public float MoneyInCash { get; set; }             //денег в кассе
 
         //конструктор сцены
-        public ParkingScene(ParkingMap map)
+        public ParkingScene(ParkingMap map, ParkingSceneSettings settings)
         {
-            MoneyInCash = 0.0f;
+            this.settings = settings;
             this.map = map;
+            MoneyInCash = 0.0f;
             map.Clear();
             //настраиваем и запускаем таймер добавления машин
             addCarTimer = new Timer();
             addCarTimer.Tick += new EventHandler(AddCarsOnScene);
-            addCarTimer.Interval = 3000;
+            addCarTimer.Interval = 5000;
             addCarTimer.Start();
 
             //настраиваем и запускаем таймер проверки, не пора ли освобождать парковочное место
             checkParkingPlaceTimer = new Timer();
             checkParkingPlaceTimer.Tick += new EventHandler(CheckParkingPlace);
-            checkParkingPlaceTimer.Interval = 1000;
+            checkParkingPlaceTimer.Interval = settings.Interval;
             checkParkingPlaceTimer.Start();
         }
 
         //метод поиска ближайшего к въезду в парковку парковочного места
-        private ParkingPlace FindParkingPlace(Car.TypeOfCar type)
+        private ParkingPlace FindParkingPlace(TypeOfCar type)
         {
-            ParkingPlace res = map.ParkingPlaces.OrderBy(pp => Vector2.Distance(map.StartVertex.Position, pp.VertexOnGraph.Position)).FirstOrDefault(pp => pp.Type == type && pp.IsEmpty);
+            ParkingPlace res = map.ParkingPlaces.OrderBy(pp => Vector2.Distance(map.EntranceVertex.Position, pp.VertexOnGraph.Position)).FirstOrDefault(pp => pp.Type == type && pp.IsEmpty);
             return res;
         }
 
@@ -72,9 +73,37 @@ namespace Parking
             }
         }
 
+        private int GetInterval()
+        {
+            int result = 5000;
+            if (settings.Method == Method.Determined)
+            {
+                result = settings.Interval * 1000;
+            }
+            else
+            {
+                if (settings.DistributionLaw == DistributionLaw.Normal)
+                {
+                    result = (int)(RandGenerator.GaussRand(settings.M, settings.Sigma) * 1000);
+                }
+                else if (settings.DistributionLaw == DistributionLaw.Uniform)
+                {
+                    result = RandGenerator.Rand(settings.UniformA, settings.UniformB) * 1000;
+                }
+                else
+                {
+                    result = (int)(RandGenerator.ExpRand(settings.Lambda, settings.ExpA, settings.ExpB) * 1000);
+                }
+            }
+            return result;
+        }
+
         //метод таймера добавления машин на сцену
         private void AddCarsOnScene(Object myObject, EventArgs myEventArgs)
-        {
+        {     
+            addCarTimer.Stop();
+            addCarTimer.Interval = GetInterval();
+            
             TryFunc<Vertex, IEnumerable<Edge<Vertex>>> tryGetPath;
             Random rnd = new Random();
             
@@ -82,15 +111,15 @@ namespace Parking
             int type = rnd.Next(4);
             int parkingPeriod = rnd.Next(5, 20) * 4;
             float tarif;
-            Car.TypeOfCar typeOfCar;
+            TypeOfCar typeOfCar;
             if (type != 1)
             {
-                typeOfCar = Car.TypeOfCar.Automobile;
+                typeOfCar = TypeOfCar.Automobile;
                 tarif = ParkingTariffAutomobile;
             }
             else
             {
-                typeOfCar = Car.TypeOfCar.Lorry;
+                typeOfCar = TypeOfCar.Lorry;
                 tarif = ParkingTariffLorry;
             }
 
@@ -120,6 +149,7 @@ namespace Parking
                 car.Path = path;
             }
             cars.Add(car);
+            addCarTimer.Start();
         }
 
         //метод обновления сцены
@@ -130,8 +160,6 @@ namespace Parking
                 c.Update(deltaTime);
             }
         }
-
-       
 
         //метод отрисовки окружения
         private void RenderEnvironment(Graphics g)

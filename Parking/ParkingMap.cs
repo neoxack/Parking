@@ -142,20 +142,20 @@ namespace Parking
             result.AddEdge(v25, v24);
 
             //создаём парковочные места
-            ParkingPlace p1 = new ParkingPlace(1, v4, Car.TypeOfCar.Automobile);
-            ParkingPlace p2 = new ParkingPlace(2, v7, Car.TypeOfCar.Automobile);
-            ParkingPlace p3 = new ParkingPlace(3, v10, Car.TypeOfCar.Automobile);
-            ParkingPlace p4 = new ParkingPlace(4, v13, Car.TypeOfCar.Automobile);
+            ParkingPlace p1 = new ParkingPlace(1, v4, TypeOfCar.Automobile);
+            ParkingPlace p2 = new ParkingPlace(2, v7, TypeOfCar.Automobile);
+            ParkingPlace p3 = new ParkingPlace(3, v10, TypeOfCar.Automobile);
+            ParkingPlace p4 = new ParkingPlace(4, v13, TypeOfCar.Automobile);
 
-            ParkingPlace p5 = new ParkingPlace(5, v5, Car.TypeOfCar.Automobile);
-            ParkingPlace p6 = new ParkingPlace(6, v8, Car.TypeOfCar.Automobile);
-            ParkingPlace p7 = new ParkingPlace(7, v11, Car.TypeOfCar.Automobile);
-            ParkingPlace p8 = new ParkingPlace(8, v14, Car.TypeOfCar.Automobile);
+            ParkingPlace p5 = new ParkingPlace(5, v5, TypeOfCar.Automobile);
+            ParkingPlace p6 = new ParkingPlace(6, v8, TypeOfCar.Automobile);
+            ParkingPlace p7 = new ParkingPlace(7, v11, TypeOfCar.Automobile);
+            ParkingPlace p8 = new ParkingPlace(8, v14, TypeOfCar.Automobile);
 
-            ParkingPlace p1L = new ParkingPlace(1, v25, Car.TypeOfCar.Lorry);
-            ParkingPlace p2L = new ParkingPlace(2, v23, Car.TypeOfCar.Lorry);
-            ParkingPlace p3L = new ParkingPlace(3, v21, Car.TypeOfCar.Lorry);
-            ParkingPlace p4L = new ParkingPlace(4, v19, Car.TypeOfCar.Lorry);
+            ParkingPlace p1L = new ParkingPlace(1, v25, TypeOfCar.Lorry);
+            ParkingPlace p2L = new ParkingPlace(2, v23, TypeOfCar.Lorry);
+            ParkingPlace p3L = new ParkingPlace(3, v21, TypeOfCar.Lorry);
+            ParkingPlace p4L = new ParkingPlace(4, v19, TypeOfCar.Lorry);
 
 
             result.ParkingPlaces = new[] { p1, p2, p3, p4, p5, p6, p7, p8, p1L, p2L, p3L, p4L };
@@ -267,23 +267,23 @@ namespace Parking
             result.AddEdge(v34, v33);
 
             //создаём парковочные места
-            ParkingPlace p1 = new ParkingPlace(1, v8, Car.TypeOfCar.Automobile);
-            ParkingPlace p2 = new ParkingPlace(2, v12, Car.TypeOfCar.Automobile);
-            ParkingPlace p3 = new ParkingPlace(3, v14, Car.TypeOfCar.Automobile);
-            ParkingPlace p4 = new ParkingPlace(4, v17, Car.TypeOfCar.Automobile);
-            ParkingPlace p5 = new ParkingPlace(5, v20, Car.TypeOfCar.Automobile);
+            ParkingPlace p1 = new ParkingPlace(1, v8, TypeOfCar.Automobile);
+            ParkingPlace p2 = new ParkingPlace(2, v12, TypeOfCar.Automobile);
+            ParkingPlace p3 = new ParkingPlace(3, v14, TypeOfCar.Automobile);
+            ParkingPlace p4 = new ParkingPlace(4, v17, TypeOfCar.Automobile);
+            ParkingPlace p5 = new ParkingPlace(5, v20, TypeOfCar.Automobile);
 
-            ParkingPlace p6 = new ParkingPlace(6, v9, Car.TypeOfCar.Automobile);
-            ParkingPlace p7 = new ParkingPlace(7, v11, Car.TypeOfCar.Automobile);
-            ParkingPlace p8 = new ParkingPlace(8, v15, Car.TypeOfCar.Automobile);
-            ParkingPlace p9 = new ParkingPlace(9, v18, Car.TypeOfCar.Automobile);
-            ParkingPlace p10 = new ParkingPlace(20, v21, Car.TypeOfCar.Automobile);
+            ParkingPlace p6 = new ParkingPlace(6, v9, TypeOfCar.Automobile);
+            ParkingPlace p7 = new ParkingPlace(7, v11, TypeOfCar.Automobile);
+            ParkingPlace p8 = new ParkingPlace(8, v15, TypeOfCar.Automobile);
+            ParkingPlace p9 = new ParkingPlace(9, v18, TypeOfCar.Automobile);
+            ParkingPlace p10 = new ParkingPlace(20, v21, TypeOfCar.Automobile);
 
-            ParkingPlace p1L = new ParkingPlace(1, v34, Car.TypeOfCar.Lorry);
-            ParkingPlace p2L = new ParkingPlace(2, v32, Car.TypeOfCar.Lorry);
-            ParkingPlace p3L = new ParkingPlace(3, v30, Car.TypeOfCar.Lorry);
-            ParkingPlace p4L = new ParkingPlace(4, v28, Car.TypeOfCar.Lorry);
-            ParkingPlace p5L = new ParkingPlace(4, v26, Car.TypeOfCar.Lorry);
+            ParkingPlace p1L = new ParkingPlace(1, v34, TypeOfCar.Lorry);
+            ParkingPlace p2L = new ParkingPlace(2, v32, TypeOfCar.Lorry);
+            ParkingPlace p3L = new ParkingPlace(3, v30, TypeOfCar.Lorry);
+            ParkingPlace p4L = new ParkingPlace(4, v28, TypeOfCar.Lorry);
+            ParkingPlace p5L = new ParkingPlace(4, v26, TypeOfCar.Lorry);
 
 
             result.ParkingPlaces = new[] { p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p1L, p2L, p3L, p4L, p5L };

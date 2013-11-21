@@ -26,14 +26,11 @@ namespace Parking
             return x;
         }
 
-        public static int GaussRand(int min, int max)
+        public static float ExpRand(float lambda, int min, int max)
         {
-            float average = (float)( min + max ) / 2;
-            float sigma = (average - min) / 3;
-
-
-            float value = GaussRand(average, sigma);
-            return (int)value;
+            double res = r.NextDouble();
+            res = min + (-1.0 / lambda) * Math.Log(res) * (max - min);
+            return (float)res;
         }
 
 
