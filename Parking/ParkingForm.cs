@@ -39,7 +39,7 @@ namespace Parking
             //настраиваем и запускаем таймер обновления статистики(fps и кол-ва денег в кассе)
             myTimer.Tick += new EventHandler(TimerEventProcessor);
             myTimer.Interval = 500;
-            myTimer.Start();   
+            myTimer.Start();
         }
 
         ParkingScene scene; //сцена парковки
@@ -50,16 +50,18 @@ namespace Parking
             if(scene != null) scene.Dispose();
             scene = new ParkingScene((ParkingMap)mapSizeBox.SelectedItem, settings);
             visualizeSceneControl1.Scene = scene;
-            scene.ParkingTariffAutomobile = 10; //тариф для легковых машин
-            scene.ParkingTariffLorry = 20;      //тариф для грузовых машин
             visualizeSceneControl1.BackColor = Color.Gray;
+            var g = visualizeSceneControl1.CreateGraphics();
+            g.Clear(visualizeSceneControl1.BackColor);
+            scene.Render(g);
         }
 
         //запуск визуализации сцены
         private void start_Click(object sender, EventArgs e)
         {
             mapSizeBox.Enabled = false;
-            CreateScene();      
+            CreateScene();
+            scene.Start();
             visualizeSceneControl1.Start();
         }
 
@@ -80,5 +82,11 @@ namespace Parking
             Settings settingsForm = new Settings(settings);
             settingsForm.ShowDialog(this);
         }
+
+        private void mapSizeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CreateScene();    
+        }
+
     }
 }

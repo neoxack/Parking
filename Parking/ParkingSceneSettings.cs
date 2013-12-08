@@ -24,6 +24,10 @@ namespace Parking
             Method = Parking.Method.Determined;
             Interval = 5;
             CarSpeed = 5;
+            TarifLorry = 20;
+            TarifAuto = 10;
+            ExpA = 5;
+            ExpB = 40;
         }
 
         public Method Method { get; set; }
@@ -37,5 +41,7 @@ namespace Parking
         public int ExpB { get; set; }
         public int UniformA { get; set; }
         public int UniformB { get; set; }
+        public int TarifLorry { get; set; }
+        public int TarifAuto { get; set; }
     }
 }

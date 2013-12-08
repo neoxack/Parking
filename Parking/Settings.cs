@@ -100,6 +100,9 @@ namespace Parking
         private void buttonOK_Click(object sender, EventArgs e)
         {
             settings.CarSpeed = (int)numericUpDown2.Value;
+            settings.TarifAuto = (int)numericUpDown7.Value;
+            settings.TarifLorry = (int)numericUpDown9.Value;
+
             if (radioButton1.Checked)
             {
                 settings.Interval = (int)numericUpDown1.Value;
@@ -117,8 +120,6 @@ namespace Parking
                 else if (radioButton4.Checked)
                 {
                     settings.DistributionLaw = DistributionLaw.Exponential;
-                    settings.ExpA = (int)numericUpDown7.Value;
-                    settings.ExpB = (int)numericUpDown9.Value;
                     settings.Lambda = (int)numericUpDown8.Value;
                 }
                 else

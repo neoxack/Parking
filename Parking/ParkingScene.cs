@@ -17,9 +17,6 @@ namespace Parking
         private Timer checkParkingPlaceTimer; //таймер проверки, не пора ли освобождать парковочное место
         private ParkingMap map; //карта
         private ParkingSceneSettings settings;//настройки сцены
-
-        public float ParkingTariffAutomobile { get; set; } //тариф за автомобиль
-        public float ParkingTariffLorry { get; set; }      //тариф за грузовик
         public float MoneyInCash { get; set; }             //денег в кассе
 
         //конструктор сцены
@@ -28,7 +25,11 @@ namespace Parking
             this.settings = settings;
             this.map = map;
             MoneyInCash = 0.0f;
-            map.Clear();
+            map.Clear();      
+        }
+
+        public void Start()
+        {
             //настраиваем и запускаем таймер добавления машин
             addCarTimer = new Timer();
             addCarTimer.Tick += new EventHandler(AddCarsOnScene);
@@ -115,12 +116,12 @@ namespace Parking
             if (type != 1)
             {
                 typeOfCar = TypeOfCar.Automobile;
-                tarif = ParkingTariffAutomobile;
+                tarif = settings.TarifAuto;
             }
             else
             {
                 typeOfCar = TypeOfCar.Lorry;
-                tarif = ParkingTariffLorry;
+                tarif = settings.TarifLorry;
             }
 
             Car car = new Car(typeOfCar, 1.0f);
@@ -152,13 +153,42 @@ namespace Parking
             addCarTimer.Start();
         }
 
+        private bool BelongsArea(Car c, Rectangle r)
+        {
+            if (c.coords.X >= r.Left && c.coords.X <= r.Right && c.coords.Y >= r.Top && c.coords.Y <= r.Bottom)
+                return true;
+            return false;
+
+        }
+
         //метод обновления сцены
         public void Update(double deltaTime)
         {
             foreach (Car c in cars)
             {
                 c.Update(deltaTime);
+                foreach (Car c2 in cars)
+                {
+                    if (c != c2)
+                    {
+                        if (Vector2.Distance(c.coords, c2.coords) < 120)
+                        {
+                            if (c.coords.Y <= 450 && c2.coords.Y > 450)
+                            {
+                                c.Speed = 0.1 * c2.Speed;
+                            }
+                        }
+                        else
+                        {
+                            c.Speed = 1.0;
+                            c2.Speed = 1.0;
+                        }
+                    }
+                }
             }
+
+
+            cars.RemoveAll(c => c.coords.Equals(map.EndVertex.Position));
         }
 
         //метод отрисовки окружения
@@ -191,11 +221,9 @@ namespace Parking
         {
             if (disposing)
             {
-                addCarTimer.Dispose();
-                checkParkingPlaceTimer.Dispose();
-                
-                addCarTimer.Dispose();
-                checkParkingPlaceTimer.Dispose();
+                if (addCarTimer != null) addCarTimer.Dispose();
+                if (checkParkingPlaceTimer != null) checkParkingPlaceTimer.Dispose();
+                if (checkParkingPlaceTimer != null) checkParkingPlaceTimer.Dispose();
                 GC.SuppressFinalize(this);
             }
         }

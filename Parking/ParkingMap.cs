@@ -19,6 +19,7 @@ namespace Parking
         public ParkingPlace[] ParkingPlaces { get; private set; }     //массив парковочных мест
         public int Width { get; private set; }
         public int Height { get; private set; }
+        public int MoveBorderY { get; private set; }
 
         public ParkingMap(string name, int width, int height)
         {
@@ -162,6 +163,9 @@ namespace Parking
             result.StartVertex = v1;
             result.EndVertex = v28;
             result.EntranceVertex = v29;
+
+            result.MoveBorderY = 450;
+
             return result;
         }
 
@@ -290,6 +294,9 @@ namespace Parking
             result.StartVertex = v1;
             result.EndVertex = v6;
             result.EntranceVertex = v2;
+
+            result.MoveBorderY = 600;
+
             return result;
         }
 

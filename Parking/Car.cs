@@ -42,12 +42,15 @@ namespace Parking
             } 
         }
 
-        private static Brush brush1 = new SolidBrush(Color.Red);   //кисть для рисования легковой машины
-        private static Brush brush2 = new SolidBrush(Color.Green); //кисть для рисования грузовой машины
+        //private static Brush brush1 = new SolidBrush(Color.Red);   //кисть для рисования легковой машины
+        //private static Brush brush2 = new SolidBrush(Color.Green); //кисть для рисования грузовой машины
+        private static Image autoImage = new Bitmap(Image.FromFile("auto.png"));
+        private static Image lorryImage = new Bitmap(Image.FromFile("lorry.png"));
         private CatmullRom spline = new CatmullRom();              //сплайн катмулл-рома
         private IEnumerable<Edge<Vertex>> path;                    //путь передвижения (перечисление рёбер графа)
         private double t;                                          //параметр сплайна (от 0 до 1) - в зависимости от него получаем текущую координату машины
-        private Vector2 coords;                                    //текущие координаты машины
+        public Vector2 coords { get; set; }                        //текущие координаты машины
+        private Vector2 oldCoords;   
 
         //конструктор машины
         public Car(TypeOfCar type, float speed)
@@ -66,13 +69,34 @@ namespace Parking
             }
         }
 
+        public static Bitmap RotateImage(Image image, float angle)
+        {
+
+            Bitmap rotatedBmp = new Bitmap(image.Width+20, image.Width+20);
+            Graphics g = Graphics.FromImage(rotatedBmp);
+            g.TranslateTransform(image.Width / 2 + 10, image.Width / 2 + 10);
+            g.RotateTransform(angle);
+            g.TranslateTransform(-image.Width / 2 - 10, -image.Width / 2 - 10);
+            g.DrawImageUnscaled(image, new Point(0, 0));
+            return rotatedBmp;
+        }
+
         //метод отрисовки машины
         public void Render(Graphics g)
         {
-            if(Type == TypeOfCar.Automobile)
-                g.FillRectangle(brush1, coords.X - 10, coords.Y - 10, 20, 20);
+            float angle = (float)(Math.Atan2(coords.X - oldCoords.X, coords.Y - oldCoords.Y) / Math.PI * 180)+90;
+            if (coords.Equals(oldCoords)) angle = 0;
+            if (Type == TypeOfCar.Automobile)
+            {
+                Image rotatedImg = RotateImage(autoImage, -angle);
+                g.DrawImage(rotatedImg, coords.X - 50 , coords.Y-10 );
+            }
             else
-                g.FillRectangle(brush2, coords.X - 15, coords.Y - 15, 30, 30);
+            {
+                Image rotatedImg = RotateImage(lorryImage, -angle);
+                g.DrawImage(rotatedImg, coords.X -50, coords.Y -10);
+            }
+            oldCoords = coords;
         }
     }
 }

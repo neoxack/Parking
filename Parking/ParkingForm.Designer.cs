@@ -41,9 +41,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.visualizeSceneControl1 = new Parking.VisualizeSceneControl();
             this.оСистемеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оРазработчикахToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.visualizeSceneControl1 = new Parking.VisualizeSceneControl();
             this.status.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -123,6 +123,7 @@
             this.mapSizeBox.Name = "mapSizeBox";
             this.mapSizeBox.Size = new System.Drawing.Size(121, 21);
             this.mapSizeBox.TabIndex = 9;
+            this.mapSizeBox.SelectedIndexChanged += new System.EventHandler(this.mapSizeBox_SelectedIndexChanged);
             // 
             // menuStrip1
             // 
@@ -151,18 +152,6 @@
             this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.справкаToolStripMenuItem.Text = "Справка";
             // 
-            // visualizeSceneControl1
-            // 
-            this.visualizeSceneControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.visualizeSceneControl1.Location = new System.Drawing.Point(12, 57);
-            this.visualizeSceneControl1.Name = "visualizeSceneControl1";
-            this.visualizeSceneControl1.Scene = null;
-            this.visualizeSceneControl1.Size = new System.Drawing.Size(800, 700);
-            this.visualizeSceneControl1.State = Parking.VisualizeSceneControl.VisualizeState.Stopped;
-            this.visualizeSceneControl1.TabIndex = 3;
-            // 
             // оСистемеToolStripMenuItem
             // 
             this.оСистемеToolStripMenuItem.Name = "оСистемеToolStripMenuItem";
@@ -174,6 +163,18 @@
             this.оРазработчикахToolStripMenuItem.Name = "оРазработчикахToolStripMenuItem";
             this.оРазработчикахToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.оРазработчикахToolStripMenuItem.Text = "О разработчиках";
+            // 
+            // visualizeSceneControl1
+            // 
+            this.visualizeSceneControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.visualizeSceneControl1.Location = new System.Drawing.Point(12, 57);
+            this.visualizeSceneControl1.Name = "visualizeSceneControl1";
+            this.visualizeSceneControl1.Scene = null;
+            this.visualizeSceneControl1.Size = new System.Drawing.Size(800, 700);
+            this.visualizeSceneControl1.State = Parking.VisualizeSceneControl.VisualizeState.Stopped;
+            this.visualizeSceneControl1.TabIndex = 3;
             // 
             // ParkingForm
             // 
